@@ -11,7 +11,13 @@ const WaterEffects = (() => {
  const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
  const smooth=x=>{x=clamp(x);return x*x*(3-2*x);};
  // Exact song cues belong here after musical confirmation; preview is explicit.
- const choruses=[];
+ let choruses=[];
+ try { const data=JSON.parse(localStorage.getItem('light-surf-plastic-wave-boy-cues-v1'));
+ if(data?.version===1&&data.track==='plastic-wave-boy'&&Array.isArray(data.choruses)) {
+ const rows=data.choruses.map(r=>Array.isArray(r)?r.slice():[]).sort((a,b)=>a[0]-b[0]);
+ if(rows.every((r,i)=>r.length===2&&r.every(Number.isFinite)&&r[0]>=0&&r[1]>r[0]&&r[1]<=216.36&&(!i||r[0]>=rows[i-1][1])))choruses=rows;
+ }
+ } catch (_) {}
  function cue(time,ranges=choruses){
   for(const [start,end] of ranges)if(time>=start&&time<end)
    return {amount:smooth((time-start)/2)*smooth((end-time)/3),age:time-start};
