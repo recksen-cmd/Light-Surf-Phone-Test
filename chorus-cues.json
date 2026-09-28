@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "track": "plastic-wave-boy",
+  "units": "seconds",
+  "choruses": [
+    [
+      45,
+      64.97
+    ],
+    [
+      107.83,
+      142.27
+    ],
+    [
+      162,
+      180.03
+    ]
+  ]
+}
